@@ -20,9 +20,10 @@ export default function ProductVideo() {
   return (
     <section id="product-video" className="relative bg-white py-20 font-label sm:py-24">
       <div className="absolute inset-x-0 top-0 h-px bg-slate-200" />
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-        {/* ---------- copy ---------- */}
-        <div>
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 lg:grid lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
+        {/* ---------- copy — on mobile its parts join the flex column so the video can sit between heading and grades ---------- */}
+        <div className="contents lg:block">
+          <div className="order-1">
           <Reveal>
             <div className="flex items-center gap-3">
               <span className="h-px w-10 bg-[#1e5eff]" />
@@ -40,8 +41,9 @@ export default function ProductVideo() {
               Uniform pellet size, clean cut and consistent colour — every shade of PC, ABS and PBT we compound, batch after batch.
             </p>
           </Reveal>
+          </div>
 
-          <ul className="mt-8 space-y-4">
+          <ul className="order-3 space-y-4 lg:mt-8">
             {grades.map((g, i) => (
               <Reveal key={g.code} i={i + 2}>
                 <li className="flex items-center gap-4">
@@ -57,10 +59,10 @@ export default function ProductVideo() {
             ))}
           </ul>
 
-          <Reveal i={5}>
+          <Reveal i={5} className="order-4">
             <Link
               href="/products"
-              className="group mt-9 inline-flex items-center gap-3 rounded-full bg-[#0b1f4d] py-1.5 pl-6 pr-1.5 text-sm font-semibold text-white shadow-lg shadow-[#0b1f4d]/20 transition hover:bg-[#123a8f]"
+              className="group inline-flex lg:mt-9 items-center gap-3 rounded-full bg-[#0b1f4d] py-1.5 pl-6 pr-1.5 text-sm font-semibold text-white shadow-lg shadow-[#0b1f4d]/20 transition hover:bg-[#123a8f]"
             >
               Explore all grades
               <span className="grid h-9 w-9 place-items-center rounded-full bg-[#8be04e] text-[#0b1f4d] transition-transform duration-300 group-hover:rotate-45">
@@ -71,7 +73,7 @@ export default function ProductVideo() {
         </div>
 
         {/* ---------- video ---------- */}
-        <Reveal i={1} className="lg:order-first">
+        <Reveal i={1} className="order-2 lg:order-first">
           <div className="relative mr-3 sm:mr-4">
             {/* granule-colour panel peeking out behind the frame */}
             <div

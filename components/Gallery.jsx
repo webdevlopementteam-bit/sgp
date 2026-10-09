@@ -209,7 +209,7 @@ export default function Gallery() {
           {/* "All" is a 4-col bento; a filtered set fills the row instead (3 → 3 across, 4 → 2×2) */}
           <motion.ul
             layout
-            className={`mt-10 grid grid-flow-dense auto-rows-[150px] grid-cols-2 gap-3 sm:auto-rows-[190px] sm:gap-4 ${
+            className={`mt-10 grid grid-flow-dense auto-rows-[185px] grid-cols-2 gap-3 sm:auto-rows-[225px] sm:gap-4 ${
               cat === "all"
                 ? "lg:grid-cols-4 lg:auto-rows-[100px]"
                 : list.length % 3 === 0

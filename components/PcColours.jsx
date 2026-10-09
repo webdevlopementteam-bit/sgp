@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Check, Palette, ShieldCheck, Pipette } from "lucide-react";
+import { ArrowUpRight, Check, Palette, ShieldCheck } from "lucide-react";
 import { Reveal } from "./ui";
 
 // shades shown in the bowl pyramid (/pc-colours.webp, from public/dana.png)
@@ -30,9 +30,10 @@ export default function PcColours() {
     <section id="pc-colours" className="relative overflow-hidden bg-gradient-to-b from-white via-[#f4f8ff] to-white py-16 font-label sm:py-24">
       <div className="absolute inset-x-0 top-0 h-px bg-slate-200" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-        {/* ---------- copy ---------- */}
-        <div className="order-2 lg:order-1">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-5 lg:grid lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-16">
+        {/* ---------- copy — on mobile its parts join the flex column so the bowls sit under the paragraph ---------- */}
+        <div className="contents lg:order-1 lg:block">
+          <div className="order-1">
           <Reveal>
             <div className="flex items-center gap-3">
               <span className="h-px w-10 bg-[#1e5eff]" />
@@ -41,9 +42,14 @@ export default function PcColours() {
           </Reveal>
           <Reveal i={1}>
             <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-[#0b1530] sm:text-4xl lg:text-5xl">
-              One polymer.{" "}
-              <span className="bg-gradient-to-r from-[#1e5eff] via-[#e1141b] to-[#a4cf2c] bg-clip-text text-transparent">
-                Every colour
+              One polymer. Every{" "}
+              {/* only "colour" is multi-coloured — one letter per shade from the swatches */}
+              <span aria-label="colour">
+                {["#e1141b", "#ff6a00", "#a4cf2c", "#0f8f86", "#1f3fcf", "#ff4a12"].map((c, i) => (
+                  <span key={i} aria-hidden="true" style={{ color: c }}>
+                    {"colour"[i]}
+                  </span>
+                ))}
               </span>{" "}
               you need.
             </h2>
@@ -54,17 +60,19 @@ export default function PcColours() {
               the first batch to the last. Share a sample or a shade code and our lab will match it.
             </p>
           </Reveal>
+          </div>
 
+          <div className="order-3">
           {/* swatches */}
           <Reveal i={3}>
-            <div className="mt-8">
+            <div className="lg:mt-8">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Popular shades</p>
                 <p className="h-5 text-sm font-semibold text-[#0b1530]" aria-live="polite">
-                  {shade ? shade.name : <span className="font-normal text-slate-400">+ custom matching</span>}
+                  {shade?.name}
                 </p>
               </div>
-              <div className="mt-3 flex flex-wrap gap-2.5" onMouseLeave={() => setActive(null)}>
+              <div className="mt-3 flex flex-nowrap gap-2 sm:gap-2.5" onMouseLeave={() => setActive(null)}>
                 {shades.map((s, i) => (
                   <button
                     key={s.name}
@@ -73,15 +81,12 @@ export default function PcColours() {
                     onMouseEnter={() => setActive(i)}
                     onFocus={() => setActive(i)}
                     onClick={() => setActive(i)}
-                    className={`relative h-9 w-9 rounded-full shadow-[inset_0_-3px_6px_rgba(0,0,0,0.18),inset_0_3px_5px_rgba(255,255,255,0.45)] ring-2 transition duration-300 hover:-translate-y-1 sm:h-10 sm:w-10 ${
+                    className={`relative h-7 w-7 shrink-0 rounded-full shadow-[inset_0_-3px_6px_rgba(0,0,0,0.18),inset_0_3px_5px_rgba(255,255,255,0.45)] ring-2 transition duration-300 hover:-translate-y-1 sm:h-8 sm:w-8 ${
                       active === i ? "-translate-y-1 ring-[#0b1530] ring-offset-2" : "ring-white"
                     }`}
                     style={{ background: s.hex }}
                   />
                 ))}
-                <span className="grid h-9 w-9 place-items-center rounded-full border-2 border-dashed border-slate-300 text-slate-400 sm:h-10 sm:w-10" title="Custom shade">
-                  <Pipette className="h-4 w-4" />
-                </span>
               </div>
             </div>
           </Reveal>
@@ -97,9 +102,9 @@ export default function PcColours() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 flex flex-wrap gap-2">
+            <div className="mt-6 flex flex-nowrap gap-1.5 sm:gap-2">
               {grades.map((g) => (
-                <span key={g} className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-700">
+                <span key={g} className="whitespace-nowrap rounded-full border border-slate-200 bg-white px-2.5 py-1.5 text-[11px] font-semibold text-slate-700 sm:px-3.5 sm:text-xs">
                   {g}
                 </span>
               ))}
@@ -117,18 +122,13 @@ export default function PcColours() {
                   <ArrowUpRight className="h-4 w-4" />
                 </span>
               </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3.5 font-semibold text-slate-800 transition hover:border-[#1e5eff] hover:text-[#1e5eff]"
-              >
-                <Palette className="h-4 w-4" /> Request a colour match
-              </Link>
             </div>
           </Reveal>
+          </div>
         </div>
 
         {/* ---------- visual ---------- */}
-        <Reveal i={1} className="order-1 lg:order-2">
+        <Reveal i={1} className="order-2 lg:order-2">
           <div className="relative">
             {/* soft glow; the photo's white background multiplies away into it */}
             <div aria-hidden="true" className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle_at_50%_55%,rgba(30,94,255,0.16),rgba(124,194,66,0.10)_45%,transparent_70%)] blur-2xl" />

@@ -53,15 +53,6 @@ export default function LabVideo() {
 
   const active = chapters.reduce((a, c, i) => (time >= c.t ? i : a), 0);
 
-  // on phones the chapter list is a horizontal strip — keep the playing chapter in view
-  const list = useRef(null);
-  useEffect(() => {
-    const ol = list.current;
-    if (!ol || ol.scrollWidth <= ol.clientWidth) return;
-    const li = ol.children[active];
-    if (li) ol.scrollTo({ left: li.offsetLeft - 4, behavior: "smooth" });
-  }, [active]);
-
   const seek = (t) => {
     const v = video.current;
     if (!v) return;
@@ -171,7 +162,7 @@ export default function LabVideo() {
                 key={active}
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute left-3 top-3 flex items-center gap-2 rounded-full bg-[#071330]/80 py-1.5 pl-1.5 pr-3.5 text-xs font-semibold text-white backdrop-blur sm:left-4 sm:top-4 sm:text-sm"
+                className="absolute left-3 top-3 hidden items-center gap-2 rounded-full bg-[#071330]/80 sm:flex py-1.5 pl-1.5 pr-3.5 text-xs font-semibold text-white backdrop-blur sm:left-4 sm:top-4 sm:text-sm"
               >
                 <span className="grid h-6 w-6 place-items-center rounded-full bg-[#7cc242] text-[#071330] sm:h-7 sm:w-7">
                   {(() => {
@@ -224,12 +215,12 @@ export default function LabVideo() {
 
           {/* chapter list */}
           <Reveal i={1} className="min-w-0">
-            <ol ref={list} className="relative flex gap-3 overflow-x-auto pb-2 lg:block lg:space-y-1 lg:overflow-visible lg:pb-0">
+            <ol className="relative space-y-1">
               {chapters.map((c, i) => {
                 const on = i === active;
                 const done = i < active;
                 return (
-                  <li key={c.t} className="w-60 shrink-0 lg:w-auto">
+                  <li key={c.t}>
                     <button
                       onClick={() => seek(c.t)}
                       className={`group relative flex w-full items-start gap-4 rounded-2xl p-3.5 text-left transition lg:p-3 ${

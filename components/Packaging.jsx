@@ -20,10 +20,12 @@ const PackagingSection = () => {
       <div className="absolute inset-x-0 top-0 h-px bg-slate-200" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
 
           {/* ================= LEFT CONTENT ================= */}
-          <div>
+          {/* on mobile its parts join the flex column so the bag image sits above the feature points */}
+          <div className="contents lg:block">
+            <div className="order-1">
             {/* Small Label */}
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2">
               <Package className="h-4 w-4 text-blue-700" />
@@ -47,9 +49,11 @@ const PackagingSection = () => {
               identity. Every package combines durability, functionality and
               premium presentation.
             </p>
+            </div>
 
+            <div className="order-3">
             {/* Features */}
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 lg:mt-8">
               {features.map((feature, index) => (
                 <div
                   key={index}
@@ -96,16 +100,17 @@ const PackagingSection = () => {
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
           {/* ================= RIGHT IMAGE ================= */}
-          <div className="relative">
+          <div className="relative order-2">
             {/* Decorative Shape */}
-            <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-blue-100 via-white to-green-100 opacity-80 blur-xl" />
+            <div className="absolute -inset-5 hidden rounded-[2rem] lg:block bg-gradient-to-br from-blue-100 via-white to-green-100 opacity-80 blur-xl" />
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-4 shadow-2xl">
+            <div className="relative overflow-hidden bg-white lg:rounded-[2rem] lg:border lg:border-slate-200 lg:p-4 lg:shadow-2xl">
               {/* bag print artwork */}
-              <div className="relative overflow-hidden rounded-[1.5rem] bg-white">
+              <div className="relative overflow-hidden bg-white lg:rounded-[1.5rem]">
                 <img
                   src="/katta.jpeg"
                   alt="Shri Ganesh Polymer packaging bag design for PC, ABS and PBT granules"
@@ -119,7 +124,7 @@ const PackagingSection = () => {
 
               {/* Name below video */}
               <div className="pt-4">
-                <div className="rounded-xl bg-slate-50 px-4 py-4 text-center">
+                <div className="bg-slate-50 px-4 py-4 text-center lg:rounded-xl">
                   <p className="text-lg font-bold tracking-wide text-slate-900 sm:text-xl">
                     Shri Ganesh <span className="text-blue-700">Polymer</span>
                   </p>
