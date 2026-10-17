@@ -2,6 +2,7 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import GroupCompany from "@/components/GroupCompany";
 import QuotePopup from "@/components/QuotePopup";
 import FloatingContact from "@/components/FloatingContact";
 
@@ -23,6 +24,8 @@ export const viewport = {
 };
 
 export const metadata = {
+  metadataBase: new URL("https://www.shriganeshpolymer.in"),
+  verification: { google: "zX0u3BIOV16--Bh-T0pZ-OFcnXbHvUHrLMSKw7_IT1M" },
   title: {
     default: "shri Ganesh Polymer | Engineering Polymers – PC, ABS, PBT",
     template: "%s | shri Ganesh Polymer",
@@ -40,6 +43,7 @@ export default function RootLayout({ children }) {
       <body className="font-display antialiased">
         <Navbar />
         <main className="relative overflow-x-hidden">{children}</main>
+        <GroupCompany />
         <Footer />
         <QuotePopup />
         <FloatingContact />
