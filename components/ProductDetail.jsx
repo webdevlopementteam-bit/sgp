@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Check, ChevronRight, Phone } from "lucide-react";
 import { Reveal } from "./ui";
+import ProductContent from "./ProductContent";
 import { products } from "@/lib/products";
 
 function Eyebrow({ children }) {
@@ -17,6 +18,29 @@ function Eyebrow({ children }) {
 export default function ProductDetail({ slug }) {
   const p = products.find((x) => x.slug === slug);
   const others = products.filter((x) => x.slug !== slug);
+
+  const quoteTile = (className) => (
+    <Reveal i={p.content ? 0 : p.applications.length * 0.3} className={className}>
+      <Link
+        href="/contact"
+        className="group relative flex h-full min-h-[180px] flex-col justify-between overflow-hidden rounded-3xl bg-[#0b1f4d] p-6 text-white sm:p-7"
+      >
+        <div aria-hidden="true" className="absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 blur-3xl" style={{ background: p.accent }} />
+        <div className="relative">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8be04e]">Your part next?</p>
+          <p className="mt-3 font-display text-2xl font-medium leading-snug">
+            Tell us what you mould — we&apos;ll suggest the right {p.code} grade.
+          </p>
+        </div>
+        <span className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold">
+          Get a quote
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-[#7cc242] text-[#0b1f4d] transition-transform duration-300 group-hover:rotate-45">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </span>
+      </Link>
+    </Reveal>
+  );
 
   return (
     <div className="font-label">
@@ -57,11 +81,11 @@ export default function ProductDetail({ slug }) {
               </Reveal>
               <Reveal i={1}>
                 <h1 className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-[#0b1530] sm:text-5xl">
-                  {p.name} <span className="text-slate-400">({p.code})</span>
+                  {p.content ? p.content.h1 : <>{p.name} <span className="text-slate-400">({p.code})</span></>}
                 </h1>
               </Reveal>
               <Reveal i={2}>
-                {p.long.map((t) => (
+                {(p.content ? [p.content.intro] : p.long).map((t) => (
                   <p key={t.slice(0, 20)} className="mt-5 leading-relaxed text-slate-600">{t}</p>
                 ))}
               </Reveal>
@@ -170,33 +194,21 @@ export default function ProductDetail({ slug }) {
               </Reveal>
             ))}
 
-            {/* CTA tile fills the leftover cells of the last row */}
-            <Reveal
-              i={p.applications.length * 0.3}
-              className={`h-full ${p.applications.length % 2 === 0 ? "col-span-2" : ""} ${["lg:col-span-3", "lg:col-span-2", "lg:col-span-1"][p.applications.length % 3]}`}
-            >
-              <Link
-                href="/contact"
-                className="group relative flex h-full min-h-[180px] flex-col justify-between overflow-hidden rounded-3xl bg-[#0b1f4d] p-6 text-white sm:p-7"
-              >
-                <div aria-hidden="true" className="absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 blur-3xl" style={{ background: p.accent }} />
-                <div className="relative">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8be04e]">Your part next?</p>
-                  <p className="mt-3 font-display text-2xl font-medium leading-snug">
-                    Tell us what you mould — we&apos;ll suggest the right {p.code} grade.
-                  </p>
-                </div>
-                <span className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold">
-                  Get a quote
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-[#7cc242] text-[#0b1f4d] transition-transform duration-300 group-hover:rotate-45">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </span>
-              </Link>
-            </Reveal>
+            {/* CTA tile fills the leftover cells of the last row; pages with long copy show it after that copy */}
+            {!p.content &&
+              quoteTile(`h-full ${p.applications.length % 2 === 0 ? "col-span-2" : ""} ${["lg:col-span-3", "lg:col-span-2", "lg:col-span-1"][p.applications.length % 3]}`)}
           </div>
         </div>
       </section>
+
+      {p.content && (
+        <>
+          <ProductContent p={p} />
+          <section className="relative bg-white pb-16 sm:pb-24">
+            <div className="mx-auto max-w-7xl px-5">{quoteTile("")}</div>
+          </section>
+        </>
+      )}
 
       {/* ---------- other products ---------- */}
       <section className="relative bg-white py-16 sm:py-20">

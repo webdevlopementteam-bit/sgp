@@ -12,6 +12,14 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const p = getProduct(slug);
   if (!p) return {};
+  if (p.seo) {
+    return {
+      title: { absolute: p.seo.title },
+      description: p.seo.description,
+      keywords: p.seo.keywords,
+      alternates: { canonical: `/products/${p.slug}/` },
+    };
+  }
   return {
     title: `${p.code} Granules – ${p.name}`,
     description: `${p.desc} Used in ${p.apps}.`,
@@ -20,6 +28,29 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductPage({ params }) {
   const { slug } = await params;
-  if (!getProduct(slug)) notFound();
-  return <ProductDetail slug={slug} />;
+  const p = getProduct(slug);
+  if (!p) notFound();
+
+  const faqs = p.content?.faqs;
+  const faqSchema = faqs && {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
+  return (
+    <>
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\u003c") }}
+        />
+      )}
+      <ProductDetail slug={slug} />
+    </>
+  );
 }

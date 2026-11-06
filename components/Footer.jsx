@@ -12,7 +12,7 @@ const company = [
 ];
 
 const productLinks = [
-  { href: "/products/pc", label: "PC Granules" },
+  { href: "/products/pc-granules-manufacturer", label: "PC Granules" },
   { href: "/products/abs", label: "ABS Granules" },
   { href: "/products/pbt", label: "PBT Glass Filled" },
   { href: "/products", label: "All products" },

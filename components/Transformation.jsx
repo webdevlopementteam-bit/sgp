@@ -7,8 +7,8 @@ import { Reveal } from "./ui";
 
 // Granule close-ups are cropped from the product photos; parts are applications listed in lib/products.js.
 const pairs = [
-  { code: "PC", slug: "pc", accent: "#1e5eff", before: "white-pc", after: "led", part: "LED Panels & Downlights" },
-  { code: "PC", slug: "pc", accent: "#1e5eff", before: "grey-pc", after: "meter", part: "Meter Boxes" },
+  { code: "PC", slug: "pc-granules-manufacturer", accent: "#1e5eff", before: "white-pc", after: "led", part: "LED Panels & Downlights" },
+  { code: "PC", slug: "pc-granules-manufacturer", accent: "#1e5eff", before: "grey-pc", after: "meter", part: "Meter Boxes" },
   { code: "ABS", slug: "abs", accent: "#e11d48", before: "white-abs", after: "gangbox", part: "Modular Gang Boxes" },
   { code: "ABS", slug: "abs", accent: "#e11d48", before: "black-abs", after: "setupbox", part: "Set-top Boxes" },
   { code: "PBT", slug: "pbt", accent: "#4caf27", before: "grey-pbt", after: "mcb", part: "MCB Housings" },

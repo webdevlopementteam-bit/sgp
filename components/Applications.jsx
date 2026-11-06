@@ -16,7 +16,7 @@ const applications = [
     img: "/applications/browse/lighting.webp",
     icon: Lightbulb,
     grades: ["PC", "PBT"],
-    href: "/products/pc",
+    href: "/products/pc-granules-manufacturer",
     tone: BLUE,
   },
   {
@@ -34,7 +34,7 @@ const applications = [
     img: "/applications/browse/meter.webp",
     icon: Settings,
     grades: ["PC", "ABS"],
-    href: "/products/pc",
+    href: "/products/pc-granules-manufacturer",
     tone: BLUE,
   },
   {

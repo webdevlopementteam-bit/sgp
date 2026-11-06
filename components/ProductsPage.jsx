@@ -9,7 +9,7 @@ const compareRows = [
   { label: "Polymer type", values: { pc: "Amorphous thermoplastic", abs: "Amorphous terpolymer", pbt: "Semi-crystalline polyester" } },
   { label: "Stand-out property", values: { pc: "Impact strength & clarity", abs: "Toughness & easy moulding", pbt: "Stiffness & heat resistance" } },
   { label: "Finish", values: { pc: "Transparent / custom colours", abs: "Opaque, paintable", pbt: "White to light shades" } },
-  { label: "Grades", values: Object.fromEntries(products.map((p) => [p.slug, p.grades.join(", ")])) },
+  { label: "Grades", values: Object.fromEntries(products.map((p) => [p.code.toLowerCase(), p.grades.join(", ")])) },
 ];
 
 const custom = [
@@ -193,7 +193,7 @@ export default function ProductsPage() {
                       <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{r.label}</th>
                       {products.map((p) => (
                         <td key={p.slug} className="px-6 py-4 text-slate-700">
-                          {r.values[p.slug]}
+                          {r.values[p.code.toLowerCase()]}
                         </td>
                       ))}
                     </tr>

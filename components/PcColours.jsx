@@ -114,7 +114,7 @@ export default function PcColours() {
           <Reveal i={5}>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link
-                href="/products/pc"
+                href="/products/pc-granules-manufacturer"
                 className="group inline-flex items-center gap-3 rounded-full bg-[#1e5eff] py-2 pl-6 pr-2 font-semibold text-white shadow-xl shadow-[#1e5eff]/30 transition hover:bg-[#1847d6]"
               >
                 Explore PC granules
